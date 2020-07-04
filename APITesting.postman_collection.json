@@ -399,7 +399,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "9f50afc0f5b99f57c4c2bf77bf35a34b632825da",
+											"value": "sometoken",
 											"type": "string"
 										}
 									]
@@ -437,7 +437,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "9f50afc0f5b99f57c4c2bf77bf35a34b632825da",
+											"value": "sometoken",
 											"type": "string"
 										}
 									]
@@ -474,7 +474,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "9f50afc0f5b99f57c4c2bf77bf35a34b632825da",
+											"value": "sometoken",
 											"type": "string"
 										}
 									]
@@ -514,7 +514,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "9f50afc0f5b99f57c4c2bf77bf35a34b632825da",
+											"value": "sometoken",
 											"type": "string"
 										}
 									]
