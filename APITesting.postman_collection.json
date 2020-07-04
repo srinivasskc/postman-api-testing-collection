@@ -1,0 +1,802 @@
+{
+	"info": {
+		"_postman_id": "71454066-9dc5-41bd-89b2-305acdbf7be4",
+		"name": "API Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SOAP Webservice",
+			"item": [
+				{
+					"name": "Calculator",
+					"item": [
+						{
+							"name": "Add Calculator_Environment Variables",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "11fc52c8-4ae6-4930-9f72-3313a4ca80f2",
+										"exec": [
+											"pm.test(\"Using XML to JSON\", function () {\r",
+											"    var jsonObject = xml2Json(responseBody);\r",
+											"    pm.expect(jsonObject['soap:Envelope']['soap:Body']['AddResponse']['AddResult']).to.eql(\"6\");\r",
+											"}); \r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <Add xmlns=\"http://tempuri.org/\">\r\n      <intA>{{add_a}}</intA>\r\n      <intB>{{add_b}}</intB>\r\n    </Add>\r\n  </soap:Body>\r\n</soap:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://www.dneonline.com/calculator.asmx",
+									"protocol": "http",
+									"host": [
+										"www",
+										"dneonline",
+										"com"
+									],
+									"path": [
+										"calculator.asmx"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Calculator_Hardcoded Values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6b3a3001-8494-44c9-a57e-b2f6d7f0cfed",
+										"exec": [
+											"pm.test(\"Test Using XML to JSON\", function () {\r",
+											"    var jsonObject = xml2Json(responseBody);\r",
+											"    pm.expect(jsonObject['soap:Envelope']['soap:Body']['AddResponse']['AddResult']).to.eql(\"7\");\r",
+											"}); \r",
+											"\r",
+											"\r",
+											"pm.test(\"Test Using Cheerio\", function () {\r",
+											"    const $ = cheerio.load(responseBody)\r",
+											"    pm.expect($('AddResult').text()).to.eql(\"7\");\r",
+											"    pm.expect($('AddResponse').attr('xmlns')).to.eql(\"http://tempuri.org/\");\r",
+											"    \r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <Add xmlns=\"http://tempuri.org/\">\r\n      <intA>3</intA>\r\n      <intB>4</intB>\r\n    </Add>\r\n  </soap:Body>\r\n</soap:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://www.dneonline.com/calculator.asmx",
+									"protocol": "http",
+									"host": [
+										"www",
+										"dneonline",
+										"com"
+									],
+									"path": [
+										"calculator.asmx"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Country",
+					"item": [
+						{
+							"name": "Country ISO Code",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <CountryISOCode xmlns=\"http://www.oorsprong.org/websamples.countryinfo\">\r\n      <sCountryName>Germany</sCountryName>\r\n    </CountryISOCode>\r\n  </soap:Body>\r\n</soap:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+									"protocol": "http",
+									"host": [
+										"webservices",
+										"oorsprong",
+										"org"
+									],
+									"path": [
+										"websamples.countryinfo",
+										"CountryInfoService.wso"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Country International Phone Code",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <FullCountryInfo xmlns=\"http://www.oorsprong.org/websamples.countryinfo\">\r\n      <sCountryISOCode>DE</sCountryISOCode>\r\n    </FullCountryInfo>\r\n  </soap:Body>\r\n</soap:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+									"protocol": "http",
+									"host": [
+										"webservices",
+										"oorsprong",
+										"org"
+									],
+									"path": [
+										"websamples.countryinfo",
+										"CountryInfoService.wso"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d0810943-9640-45f9-af92-d3d682b0aad0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c217e9d4-35bb-42c3-917d-1b9b1bb55f90",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "REST APIs",
+			"item": [
+				{
+					"name": "Github",
+					"item": [
+						{
+							"name": "GET Github Jobs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://jobs.github.com/positions.json?description=API Testing",
+									"protocol": "https",
+									"host": [
+										"jobs",
+										"github",
+										"com"
+									],
+									"path": [
+										"positions.json"
+									],
+									"query": [
+										{
+											"key": "description",
+											"value": "API Testing"
+										},
+										{
+											"key": "location",
+											"value": "los angeles",
+											"disabled": true
+										},
+										{
+											"key": "full_time",
+											"value": "false",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Github Jobs by Location",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://jobs.github.com/positions.json?location=sf",
+									"protocol": "https",
+									"host": [
+										"jobs",
+										"github",
+										"com"
+									],
+									"path": [
+										"positions.json"
+									],
+									"query": [
+										{
+											"key": "location",
+											"value": "sf"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Github Jobs No Params",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://jobs.github.com/positions.json",
+									"protocol": "https",
+									"host": [
+										"jobs",
+										"github",
+										"com"
+									],
+									"path": [
+										"positions.json"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Github Jobs by Lat Long",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://jobs.github.com/positions.json?lat=52.520008&long=13.404954",
+									"protocol": "https",
+									"host": [
+										"jobs",
+										"github",
+										"com"
+									],
+									"path": [
+										"positions.json"
+									],
+									"query": [
+										{
+											"key": "lat",
+											"value": "52.520008"
+										},
+										{
+											"key": "long",
+											"value": "13.404954"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Open Library",
+					"item": [
+						{
+							"name": "GET Lists from OpenLibrary",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://openlibrary.org/people/george08/lists.json",
+									"protocol": "http",
+									"host": [
+										"openlibrary",
+										"org"
+									],
+									"path": [
+										"people",
+										"george08",
+										"lists.json"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Lists from My Open Library",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://openlibrary.org/people/srinivasskc/lists.json",
+									"protocol": "http",
+									"host": [
+										"openlibrary",
+										"org"
+									],
+									"path": [
+										"people",
+										"srinivasskc",
+										"lists.json"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Path Parameters",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://openlibrary.org/people/:user/lists.json",
+									"protocol": "http",
+									"host": [
+										"openlibrary",
+										"org"
+									],
+									"path": [
+										"people",
+										":user",
+										"lists.json"
+									],
+									"variable": [
+										{
+											"key": "user",
+											"value": "srinivasskc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Books by BibKeys",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://openlibrary.org/api/books?bibkeys=ISBN:0201558025,LCCN:93005405&format=json",
+									"protocol": "https",
+									"host": [
+										"openlibrary",
+										"org"
+									],
+									"path": [
+										"api",
+										"books"
+									],
+									"query": [
+										{
+											"key": "bibkeys",
+											"value": "ISBN:0201558025,LCCN:93005405"
+										},
+										{
+											"key": "format",
+											"value": "json"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Google",
+					"item": [
+						{
+							"name": "GET Context-Type",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "fr",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "text/html",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "www.google.com",
+									"host": [
+										"www",
+										"google",
+										"com"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "HTTPBin",
+					"item": [
+						{
+							"name": "Bearer Token Test",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "sometoken",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "httpbin.org/bearer",
+									"host": [
+										"httpbin",
+										"org"
+									],
+									"path": [
+										"bearer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Body Raw Text",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    This is Srinivas."
+								},
+								"url": {
+									"raw": "httpbin.org/anything",
+									"host": [
+										"httpbin",
+										"org"
+									],
+									"path": [
+										"anything"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST RAW DATA JSON",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"data\":\"This is Srinivas\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "httpbin.org/anything",
+									"host": [
+										"httpbin",
+										"org"
+									],
+									"path": [
+										"anything"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "GraphQL",
+			"item": [
+				{
+					"name": "Github",
+					"item": [
+						{
+							"name": "Github - REST",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "sometoken",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.github.com/users/srinivasskc",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"users",
+										"srinivasskc"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Github - GraphQL",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "9f50afc0f5b99f57c4c2bf77bf35a34b632825da",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\r\n    user(login: \"{{username}}\") {\r\n        name\r\n    }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "https://api.github.com/graphql",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"graphql"
+									]
+								},
+								"description": "https://api.github.com/graphql"
+							},
+							"response": []
+						},
+						{
+							"name": "Github - GraphQL - Postman Variables",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "9f50afc0f5b99f57c4c2bf77bf35a34b632825da",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\r\n    user(login: \"{{username}}\") {\r\n        name\r\n    }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "https://api.github.com/graphql",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Github - GraphQL - GraphQL Variables",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "9f50afc0f5b99f57c4c2bf77bf35a34b632825da",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query ($username: String!)\r\n{\r\n    user(login: $username) {\r\n        name\r\n    }\r\n}\r\n",
+										"variables": "{\r\n    \"username\" : \"srinivasskc\"\r\n}"
+									},
+									"options": {
+										"graphql": {}
+									}
+								},
+								"url": {
+									"raw": "https://api.github.com/graphql",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Github - GraphQL - GraphQL Postman Variables",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "9f50afc0f5b99f57c4c2bf77bf35a34b632825da",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query ($username: String!)\r\n{\r\n    user(login: $username) {\r\n        name\r\n    }\r\n}\r\n",
+										"variables": "{\r\n    \"username\" : \"{{username}}\"\r\n}"
+									},
+									"options": {
+										"graphql": {}
+									}
+								},
+								"url": {
+									"raw": "https://api.github.com/graphql",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
