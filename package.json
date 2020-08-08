@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "api-tests": "newman run APITesting.postman_collection.json --disable-unicode"
+        "api-tests": "newman run APITesting.postman_collection.json --disable-unicode -reporters cli,junit,html --reporter-junit-export "newman/myreport.xml" --reporter-html-export : "newman/myHTMLreport.html""
     },
     "author": "",
     "dependencies": {
